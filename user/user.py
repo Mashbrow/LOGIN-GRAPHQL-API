@@ -8,25 +8,28 @@ from werkzeug.exceptions import NotFound
 
 app = Flask(__name__)
 
+#Init Config
 PORT = 3004
 HOST = '0.0.0.0'
 
-#type_defs = load_schema_from_path('..\movie\movie.graphql')
-#query = QueryType()
-
+#Load database
 with open('{}/data/users.json'.format("."), "r") as jsf:
    users = json.load(jsf)["users"]
 
+#Index route
 @app.route("/", methods=['GET'])
 def home():
    return "<h1 style='color:blue'>Welcome to the User service!</h1>"
 
+#Get all users
 @app.route("/user", methods=['GET'])
 def get_json():
    return make_response(jsonify(users), 200)
 
+#Get the average rating of the movies booked by a user by specifying its id in the path
 @app.route("/user/<userid>", methods=['GET'])
 def get_average_user_rating(userid):
+   #Find the user
    r_sum = 0
    cond = False
    for element in users:
@@ -34,7 +37,9 @@ def get_average_user_rating(userid):
          cond = True
    if not cond:
       return make_response(jsonify({"error":"no user found"}), 400)
-      
+   
+   #REST request to the booking api
+   #Get booking for the user
    host_ = 'http://' + request.host.split(':')[0]
    request_booking = requests.get(host_ + ':' + '3201'+'/booking/'+str(userid))
    if request_booking.ok : 
@@ -43,22 +48,21 @@ def get_average_user_rating(userid):
       return make_response({"error":"no movies booked for that user"}, 409)
       
    movies_list = []
-   #with grpc.insecure_channel('localhost:3001') as channel:
-      #stub = movie_pb2_grpc.MovieStub(channel)
-      #allMovies = stub.GetListMovies(movie_pb2.Empty())
-      #for movie in allMovies:
-         #movies_list.append({"id": movie.id, "rating":movie.rating})
-      #channel.close()
+   ### Request the movie api (GRAPHQL service) to get all the movies in the databse
+   ##GRAPHQL request
+   #Define the query, we want to get id and rating of all the movies
    query = """query{
   movies {
     id
     rating
   }
 }"""
+   #Perform the request
    request_movie = requests.post('http://localhost:3001/graphql', json ={"query": query})
    if request_movie.ok:
       movies_list = request_movie.json()['data']['movies']
    
+   #Get average rating over booked movies
    booked_movies = []
    for date in bookings["dates"]:
       booked_movies += date["movies"]

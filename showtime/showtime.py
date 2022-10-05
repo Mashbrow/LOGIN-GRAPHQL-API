@@ -4,9 +4,13 @@ import showtime_pb2
 import showtime_pb2_grpc
 import json
 
+## Showtime GRPC Service
 class ShowtimeServicer(showtime_pb2_grpc.ShowtimeServicer):
 
     def __init__(self):
+        """
+            Load db
+        """
         with open('{}/data/times.json'.format("."), "r") as jsf:
             self.db = json.load(jsf)["schedule"]
 

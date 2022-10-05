@@ -4,13 +4,12 @@ from flask import Flask, request, jsonify, make_response
 
 import resolvers as r
 
+## Init Config
 PORT = 3001
 HOST = '0.0.0.0'
 app = Flask(__name__)
 
-### ADD THINGS HERE
-#
-###
+## Loading type definition from schema
 type_defs = load_schema_from_path('movie.graphql')
 query = QueryType()
 movie = ObjectType('Movie')
@@ -29,11 +28,12 @@ def home():
 
 #####
 # graphql entry points
+#Get playground
 
 @app.route('/graphql', methods=['GET'])
 def playground():
     return PLAYGROUND_HTML, 200
-    
+
 @app.route('/graphql', methods=['POST'])
 def graphql_server():
     data = request.get_json()

@@ -1,11 +1,20 @@
 import json
 
+#Resolver for movie service
 def movies(_,info):
+    """
+        Get all movies in database
+    """
     with open('{}/data/movies.json'.format("."), "r") as file:
         movies = json.load(file)
     return movies['movies']
     
 def movie_with_id(_,info,_id):
+    """
+        Get movie by specifying its id
+        Argument:
+            _id : id of the movie (in the query)
+    """
     with open('{}/data/movies.json'.format("."), "r") as file:
         movies = json.load(file)
         for movie in movies['movies']:
@@ -13,6 +22,12 @@ def movie_with_id(_,info,_id):
                 return movie
 
 def update_movie_rate(_,info,_id,_rate):
+    """
+        Update rating of a movie
+        Arguments:
+            _id: id of the movie (in the query)
+            _rate: new rating of the movie (in the query)
+    """
     newmovies = {}
     newmovie = {}
     with open('{}/data/movies.json'.format("."), "r") as rfile:
@@ -27,6 +42,11 @@ def update_movie_rate(_,info,_id,_rate):
     return newmovie
 
 def resolve_actors_in_movie(movie, info):
+    """
+        Get actors of a movie
+        Argument: 
+            movie: movie (in the query)
+    """
     with open('{}/data/actors.json'.format("."), "r") as file:
         data = json.load(file)
         actors = [actor for actor in data['actors'] if movie['id'] in actor['films']]
