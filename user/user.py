@@ -40,7 +40,7 @@ def get_average_user_rating(userid):
    
    #REST request to the booking api
    #Get booking for the user
-   host_ = 'http://' + request.host.split(':')[0]
+   host_ = 'http://booking'
    request_booking = requests.get(host_ + ':' + '3003'+'/booking/'+str(userid))
    if request_booking.ok : 
       bookings = request_booking.json()
@@ -58,7 +58,7 @@ def get_average_user_rating(userid):
   }
 }"""
    #Perform the request
-   request_movie = requests.post('http://localhost:3001/graphql', json ={"query": query})
+   request_movie = requests.post('http://movie:3001/graphql', json ={"query": query})
    if request_movie.ok:
       movies_list = request_movie.json()['data']['movies']
    
