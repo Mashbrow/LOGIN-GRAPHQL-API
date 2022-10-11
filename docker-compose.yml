@@ -15,5 +15,5 @@ services:
   user:
     build: ./user/
     ports:
-        - "3004:3004"
+      - "3004:3004"
 

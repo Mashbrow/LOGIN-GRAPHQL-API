@@ -8,7 +8,7 @@ app = Flask(__name__)
 PORT = 3003
 HOST = '0.0.0.0'
 
-with open('{}/databases/bookings.json'.format("."), "r") as jsf:
+with open('{}/data/bookings.json'.format("."), "r") as jsf:
    bookings = json.load(jsf)["bookings"]
 
 @app.route("/", methods=['GET'])
