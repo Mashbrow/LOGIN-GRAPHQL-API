@@ -2,7 +2,7 @@
 Repository for practical work on GRAPHQL  
 To launch with docker-compose, get to the LOGIN-GRAPHQL-API folder and type `docker-compose up` in your terminal.  
   - TP vert effectué
-    - Le dossier movie contient la version du TP vert GRAPHQL. Le reste des dossiers contiennent des versions GRPC ou REST. 
+    - Le dossier `movie` contient la version du TP vert GRAPHQL. Le reste des dossiers contiennent des versions GRPC ou REST. 
 
 
 
