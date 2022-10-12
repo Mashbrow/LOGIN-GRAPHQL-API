@@ -5,7 +5,8 @@ In this project, only movie is using graphql, so type 'localhost:3001/graphql' i
 
 Here are the queries, mutations and types you can use with the movie service:  
 
-```type Query {  
+```
+type Query {  
     movie_with_id(_id: String!): Movie  
     movies: [Movie]  
 }  
