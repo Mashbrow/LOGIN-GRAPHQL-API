@@ -1,6 +1,11 @@
 # LOGIN-GRAPHQL-API
 Repository for practical work on GRAPHQL  
 To launch with docker-compose, get to the LOGIN-GRAPHQL-API folder and type `docker-compose up` in your terminal.  
+  - TP vert effectué
+    - Le dossier movie contient la version du TP vert GRAPHQL. Le reste des dossiers contiennent des versions GRPC ou REST. 
+
+
+
 In this project, only movie is using graphql, so type 'localhost:3001/graphql' in your terminal to start using the graphql requests.  
 
 Here are the queries, mutations and types you can use with the movie service:  
